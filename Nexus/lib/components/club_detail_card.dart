@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../styles/app_theme.dart';
 import '../utils/models/club_model.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
+
 class ClubDetailCard extends StatelessWidget {
   final ClubModel club;
 
@@ -48,25 +50,22 @@ class ClubDetailCard extends StatelessWidget {
                         Row(
                           children: [
                             Container(
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    AppTheme.primaryAccent.withOpacity(0.2),
-                                    AppTheme.secondaryAccent.withOpacity(0.1),
-                                  ],
-                                ),
+                                color: Colors.white.withOpacity(0.05),
                                 borderRadius: BorderRadius.circular(14),
                               ),
-                              child: ShaderMask(
-                                shaderCallback: (bounds) =>
-                                    AppTheme.accentGradient.createShader(bounds),
-                                child: Icon(
-                                  getClubIcon(club.abbr),
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                              ),
+                              child: club.img != null && club.img!.endsWith('.svg')
+                                  ? SvgPicture.asset(
+                                      club.img!,
+                                      width: 28,
+                                      height: 28,
+                                      colorFilter: const ColorFilter.mode(
+                                        Colors.white,
+                                        BlendMode.srcIn,
+                                      ),
+                                    )
+                                  : Icon(Icons.group, color: Colors.white, size: 28),
                             ),
                             const SizedBox(width: 14),
                             Expanded(

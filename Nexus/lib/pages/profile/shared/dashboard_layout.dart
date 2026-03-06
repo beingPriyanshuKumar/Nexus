@@ -41,10 +41,7 @@ class DashboardLayout extends ConsumerWidget {
         backgroundColor: AppTheme.glassSurface,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.white, size: 20),
-          onPressed: () => GoRouter.of(context).go('/home'),
-        ),
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             Container(
