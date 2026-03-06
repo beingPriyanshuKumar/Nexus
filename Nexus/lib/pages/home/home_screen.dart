@@ -424,7 +424,7 @@ class _AboutSection extends StatelessWidget {
                           shaderCallback: (bounds) =>
                               AppTheme.accentGradient.createShader(bounds),
                           child: Text(
-                            'SYNC AIT',
+                            'NEXUS',
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineMedium
@@ -445,7 +445,7 @@ class _AboutSection extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'System for Networked Clubs (SYNC) AIT Pune is a central hub for '
+                          'System for Networked Clubs AIT Pune is a central hub for '
                           'all college clubs. Our platform unifies various student organizations '
                           'under one roof. We aim to foster collaboration, streamline event management, '
                           'and enhance communication among club members and the wider student body.',
