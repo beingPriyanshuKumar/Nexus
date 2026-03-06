@@ -37,7 +37,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       if (user?.year != null) {
         context.go('/profile/${user!.year}');
       } else {
-        context.go('/home');
+        _showSnackBar('Profile not configured. Please contact admin.', isError: true);
       }
     } else {
       _showSnackBar(result.message, isError: true);
@@ -93,8 +93,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    AppTheme.primaryAccent.withOpacity(0.18),
-                    AppTheme.primaryAccent.withOpacity(0.0),
+                    AppTheme.loginPrimaryAccent.withOpacity(0.15),
+                    AppTheme.loginPrimaryAccent.withOpacity(0.0),
                   ],
                 ),
               ),
@@ -113,8 +113,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    AppTheme.secondaryAccent.withOpacity(0.12),
-                    AppTheme.secondaryAccent.withOpacity(0.0),
+                    AppTheme.loginSecondaryAccent.withOpacity(0.12),
+                    AppTheme.loginSecondaryAccent.withOpacity(0.0),
                   ],
                 ),
               ),
@@ -133,8 +133,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    AppTheme.tertiaryAccent.withOpacity(0.08),
-                    AppTheme.tertiaryAccent.withOpacity(0.0),
+                    AppTheme.loginTertiaryAccent.withOpacity(0.12),
+                    AppTheme.loginTertiaryAccent.withOpacity(0.0),
                   ],
                 ),
               ),
@@ -161,7 +161,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         tag: 'auth_logo',
                         child: ShaderMask(
                           shaderCallback: (bounds) =>
-                              AppTheme.accentGradient.createShader(bounds),
+                              LinearGradient(colors: [AppTheme.loginPrimaryAccent, AppTheme.loginSecondaryAccent], begin: Alignment.topLeft, end: Alignment.bottomRight).createShader(bounds),
                           child: const Icon(
                             Icons.sync_rounded,
                             size: 80,
@@ -174,7 +174,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       // Gradient heading
                       ShaderMask(
                         shaderCallback: (bounds) =>
-                            AppTheme.accentGradient.createShader(bounds),
+                            LinearGradient(colors: [AppTheme.loginPrimaryAccent, AppTheme.loginSecondaryAccent], begin: Alignment.topLeft, end: Alignment.bottomRight).createShader(bounds),
                         child: Text(
                           'Welcome back',
                           textAlign: TextAlign.center,
@@ -245,6 +245,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               text: 'Login',
                               isLoading: authState.isLoading,
                               onPressed: _handleLogin,
+                              isLogin: true,
                             ),
                           ],
                         ),
@@ -263,7 +264,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 const EdgeInsets.symmetric(horizontal: 16),
                             child: Text('or',
                                 style: TextStyle(
-                                    color: AppTheme.textSecondary,
+                                    color: AppTheme.loginPrimaryAccent,
                                     fontSize: 13)),
                           ),
                           Expanded(
@@ -281,7 +282,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           gradient: LinearGradient(
                             colors: [
                               AppTheme.glassBorder,
-                              AppTheme.primaryAccent.withOpacity(0.3),
+                              AppTheme.loginPrimaryAccent.withOpacity(0.3),
                               AppTheme.glassBorder,
                             ],
                             begin: Alignment.topLeft,

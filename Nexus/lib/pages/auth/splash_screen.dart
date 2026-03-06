@@ -30,7 +30,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     if (state.isAuthenticated && state.user?.year != null) {
       context.go('/profile/${state.user!.year}');
     } else {
-      context.go('/home');
+      context.go('/login');
     }
   }
 
@@ -153,7 +153,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                   shaderCallback: (bounds) =>
                       AppTheme.accentGradient.createShader(bounds),
                   child: Text(
-                    'SYNC AIT',
+                    'NEXUS',
                     style: Theme.of(context).textTheme.displayLarge?.copyWith(
                           letterSpacing: 4,
                           fontWeight: FontWeight.w900,

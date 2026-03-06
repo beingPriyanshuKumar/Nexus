@@ -50,9 +50,9 @@ class _MessagesTabState extends ConsumerState<MessagesTab> {
     return Container(
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.glassSurface,
+        color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppTheme.glassBorder),
+        border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
       ),
       clipBehavior: Clip.antiAlias,
       height: MediaQuery.of(context).size.height - 200,
@@ -66,8 +66,8 @@ class _MessagesTabState extends ConsumerState<MessagesTab> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(border: Border(bottom: BorderSide(color: AppTheme.glassBorder))),
-                    child: const Text('Messages', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: Colors.white)),
+                    decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder))),
+                    child: Text('Messages', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: Theme.of(context).colorScheme.onSurface)),
                   ),
                   Expanded(
                     child: ListView(
@@ -107,19 +107,19 @@ class _MessagesTabState extends ConsumerState<MessagesTab> {
                   // Chat header
                   Container(
                     padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(border: Border(bottom: BorderSide(color: AppTheme.glassBorder))),
+                    decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder))),
                     child: Row(
                       children: [
                         if (!isWide)
                           IconButton(
-                            icon: const Icon(Icons.arrow_back, size: 20, color: Colors.white),
+                            icon: Icon(Icons.arrow_back, size: 20, color: Theme.of(context).colorScheme.onSurface),
                             onPressed: () => setState(() => _chatOpen = false),
                           ),
                         Text(
                           _activeChat != null
                               ? members.where((m) => m.id == _activeChat).map((m) => m.name).firstOrNull ?? 'Unknown'
                               : 'Public Channel',
-                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Colors.white),
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Theme.of(context).colorScheme.onSurface),
                         ),
                         if (_activeChat != null) ...[
                           const SizedBox(width: 8),
@@ -167,7 +167,7 @@ class _MessagesTabState extends ConsumerState<MessagesTab> {
                                         ),
                                         child: CircleAvatar(
                                           radius: 13,
-                                          backgroundColor: AppTheme.backgroundDark,
+                                          backgroundColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark : Colors.white,
                                           child: Text(msg.senderName[0], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: AppTheme.primaryAccent)),
                                         ),
                                       ),
@@ -176,15 +176,14 @@ class _MessagesTabState extends ConsumerState<MessagesTab> {
                                         child: Container(
                                           padding: const EdgeInsets.all(12),
                                           decoration: BoxDecoration(
-                                            gradient: isMe ? AppTheme.accentGradient : null,
-                                            color: isMe ? null : AppTheme.glassSurface,
+                                            color: isMe ? null : (Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : AppTheme.lightBg),
                                             borderRadius: BorderRadius.only(
                                               topLeft: const Radius.circular(16),
                                               topRight: const Radius.circular(16),
                                               bottomLeft: isMe ? const Radius.circular(16) : Radius.zero,
                                               bottomRight: isMe ? Radius.zero : const Radius.circular(16),
                                             ),
-                                            border: isMe ? null : Border.all(color: AppTheme.glassBorder),
+                                            border: isMe ? null : Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
                                           ),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,7 +191,7 @@ class _MessagesTabState extends ConsumerState<MessagesTab> {
                                               Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
-                                                  Text(msg.senderName, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: isMe ? Colors.white70 : Colors.white)),
+                                                   Text(msg.senderName, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: isMe ? Colors.white70 : Theme.of(context).colorScheme.onSurface)),
                                                   const SizedBox(width: 8),
                                                   Text(
                                                     _formatTime(msg.timestamp),
@@ -201,7 +200,7 @@ class _MessagesTabState extends ConsumerState<MessagesTab> {
                                                 ],
                                               ),
                                               const SizedBox(height: 4),
-                                              Text(msg.content, style: TextStyle(fontSize: 13, color: isMe ? Colors.white : Colors.white.withOpacity(0.9))),
+                                               Text(msg.content, style: TextStyle(fontSize: 13, color: isMe ? Colors.white : Theme.of(context).colorScheme.onSurface.withOpacity(0.9))),
                                             ],
                                           ),
                                         ),
@@ -217,23 +216,23 @@ class _MessagesTabState extends ConsumerState<MessagesTab> {
                   // Input
                   Container(
                     padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(border: Border(top: BorderSide(color: AppTheme.glassBorder))),
+                    decoration: BoxDecoration(border: Border(top: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder))),
                     child: Row(
                       children: [
                         Expanded(
                           child: TextField(
                             controller: _msgCtrl,
-                            style: const TextStyle(fontSize: 13, color: Colors.white),
+                            style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.onSurface),
                             onSubmitted: (_) => _handleSend(),
                             decoration: InputDecoration(
                               hintText: 'Type your message...',
                               hintStyle: TextStyle(color: AppTheme.textSecondary),
                               contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: AppTheme.glassBorder)),
-                              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: AppTheme.glassBorder)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
+                              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
                               focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: const BorderSide(color: AppTheme.primaryAccent)),
                               filled: true,
-                              fillColor: AppTheme.backgroundDark.withOpacity(0.5),
+                              fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark.withOpacity(0.5) : AppTheme.lightBg,
                             ),
                           ),
                         ),
@@ -307,16 +306,16 @@ class _ContactTile extends StatelessWidget {
                 decoration: const BoxDecoration(shape: BoxShape.circle, gradient: AppTheme.accentGradient),
                 child: CircleAvatar(
                   radius: 17,
-                  backgroundColor: AppTheme.backgroundDark,
-                  child: Text(initial, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white)),
+                  backgroundColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark : Colors.white,
+                  child: Text(initial, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : AppTheme.primaryAccent)),
                 ),
               )
             : CircleAvatar(
                 radius: 18,
-                backgroundColor: AppTheme.glassSurface,
+                backgroundColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : AppTheme.lightBg,
                 child: Text(initial, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: AppTheme.textSecondary)),
               ),
-        title: Text(name, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: isActive ? Colors.white : AppTheme.textSecondary)),
+        title: Text(name, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: isActive ? (Theme.of(context).brightness == Brightness.dark ? Colors.white : AppTheme.primaryAccent) : Theme.of(context).colorScheme.onSurface.withOpacity(0.7))),
         subtitle: Text(subtitle, style: TextStyle(fontSize: 11, color: AppTheme.textSecondary)),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         onTap: onTap,

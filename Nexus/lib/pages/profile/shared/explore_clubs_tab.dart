@@ -31,9 +31,9 @@ class _ExploreClubsTabState extends State<ExploreClubsTab> {
           // Header
           ShaderMask(
             shaderCallback: (bounds) => AppTheme.accentGradient.createShader(bounds),
-            child: const Text(
+            child: Text(
               'Explore Clubs',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
             ),
           ).animate().fadeIn(duration: 400.ms),
           const SizedBox(height: 4),
@@ -47,19 +47,19 @@ class _ExploreClubsTabState extends State<ExploreClubsTab> {
           // Search bar
           Container(
             decoration: BoxDecoration(
-              color: AppTheme.glassSurface,
+              color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: AppTheme.glassBorder),
+              border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
             ),
             child: TextField(
               onChanged: (v) => setState(() => _searchTerm = v),
-              style: const TextStyle(fontSize: 14, color: Colors.white),
+              style: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.onSurface),
               decoration: InputDecoration(
                 hintText: 'Search clubs by name or keyword...',
                 hintStyle: TextStyle(color: AppTheme.textSecondary, fontSize: 14),
                 prefixIcon: ShaderMask(
                   shaderCallback: (bounds) => AppTheme.accentGradient.createShader(bounds),
-                  child: const Icon(Icons.search, color: Colors.white, size: 22),
+                  child: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurface, size: 22),
                 ),
                 contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
                 border: InputBorder.none,

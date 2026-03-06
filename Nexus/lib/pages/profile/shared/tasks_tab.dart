@@ -107,7 +107,7 @@ class _TasksTabState extends ConsumerState<TasksTab> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Active Tasks', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text('Active Tasks', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
                   Text('Track project progress.', style: TextStyle(color: AppTheme.textSecondary, fontSize: 14)),
                 ],
               ),
@@ -148,15 +148,15 @@ class _TasksTabState extends ConsumerState<TasksTab> {
               padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
-                color: AppTheme.glassSurface,
+                color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppTheme.glassBorder),
+                border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(_isEditing ? 'Edit Task' : 'Create Task',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
                   const SizedBox(height: 16),
                   _buildField(_titleCtrl, 'Task Title'),
                   const SizedBox(height: 12),
@@ -166,8 +166,8 @@ class _TasksTabState extends ConsumerState<TasksTab> {
                         child: DropdownButtonFormField<String>(
                           value: _selectedAssignee.isEmpty ? null : _selectedAssignee,
                           decoration: _inputDec('Assign To...'),
-                          dropdownColor: const Color(0xFF1A1A2E),
-                          style: const TextStyle(color: Colors.white, fontSize: 13),
+                          dropdownColor: Theme.of(context).colorScheme.surface,
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
                           items: assignableMembers.map((m) => DropdownMenuItem(value: m.id, child: Text('${m.name} (${m.role})'))).toList(),
                           onChanged: (v) => setState(() => _selectedAssignee = v ?? ''),
                         ),
@@ -177,8 +177,8 @@ class _TasksTabState extends ConsumerState<TasksTab> {
                         child: DropdownButtonFormField<String>(
                           value: _selectedPriority,
                           decoration: _inputDec('Priority'),
-                          dropdownColor: const Color(0xFF1A1A2E),
-                          style: const TextStyle(color: Colors.white, fontSize: 13),
+                          dropdownColor: Theme.of(context).colorScheme.surface,
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
                           items: const [
                             DropdownMenuItem(value: 'Low', child: Text('Low Priority')),
                             DropdownMenuItem(value: 'Medium', child: Text('Medium Priority')),
@@ -195,7 +195,7 @@ class _TasksTabState extends ConsumerState<TasksTab> {
                   TextField(
                     controller: _descCtrl,
                     maxLines: 3,
-                    style: const TextStyle(fontSize: 13, color: Colors.white),
+                    style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.onSurface),
                     decoration: _inputDec('Description (Optional)'),
                   ),
                   const SizedBox(height: 16),
@@ -242,9 +242,9 @@ class _TasksTabState extends ConsumerState<TasksTab> {
               margin: const EdgeInsets.only(bottom: 16),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppTheme.backgroundDark.withOpacity(0.5),
+                color: state.activeTab == 'explore' ? Colors.transparent : (Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark.withOpacity(0.5) : Colors.white),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppTheme.glassBorder),
+                border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,7 +260,7 @@ class _TasksTabState extends ConsumerState<TasksTab> {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: AppTheme.glassBorder),
                         ),
-                        child: Text('${tasksForStatus.length}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white)),
+                        child: Text('${tasksForStatus.length}', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface)),
                       ),
                     ],
                   ),
@@ -297,7 +297,7 @@ class _TasksTabState extends ConsumerState<TasksTab> {
   Widget _buildField(TextEditingController ctrl, String hint) {
     return TextField(
       controller: ctrl,
-      style: const TextStyle(fontSize: 13, color: Colors.white),
+      style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.onSurface),
       decoration: _inputDec(hint),
     );
   }
@@ -307,11 +307,11 @@ class _TasksTabState extends ConsumerState<TasksTab> {
       hintText: hint,
       hintStyle: TextStyle(color: AppTheme.textSecondary),
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.glassBorder)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.glassBorder)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppTheme.primaryAccent)),
       filled: true,
-      fillColor: AppTheme.backgroundDark.withOpacity(0.5),
+      fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark.withOpacity(0.5) : AppTheme.lightBg,
     );
   }
 }
@@ -345,9 +345,9 @@ class _TaskCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppTheme.glassSurface,
+        color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppTheme.glassBorder),
+        border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -355,7 +355,7 @@ class _TaskCard extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(task.title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+                child: Text(task.title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface)),
               ),
               if (canManage) ...[
                 GestureDetector(

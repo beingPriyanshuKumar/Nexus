@@ -108,7 +108,7 @@ class _MembersTabState extends ConsumerState<MembersTab> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Team Members', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text('Team Members', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
                   Text(canManage ? 'Manage your team members.' : 'View team members.',
                       style: TextStyle(color: AppTheme.textSecondary, fontSize: 14)),
                 ],
@@ -149,15 +149,15 @@ class _MembersTabState extends ConsumerState<MembersTab> {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: AppTheme.glassSurface,
+                color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppTheme.glassBorder),
+                border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(_isEditing ? 'Edit Member' : 'Add New Member',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
                   const SizedBox(height: 16),
                   _buildTextField(_nameCtrl, 'Name'),
                   const SizedBox(height: 12),
@@ -169,8 +169,8 @@ class _MembersTabState extends ConsumerState<MembersTab> {
                         child: DropdownButtonFormField<String>(
                           value: _selectedRole,
                           decoration: _inputDecoration('Role'),
-                          dropdownColor: const Color(0xFF1A1A2E),
-                          style: const TextStyle(color: Colors.white, fontSize: 13),
+                          dropdownColor: Theme.of(context).colorScheme.surface,
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 13),
                           items: [
                             const DropdownMenuItem(value: 'FE', child: Text('FE')),
                             if (state.role == 'TE') const DropdownMenuItem(value: 'SE', child: Text('SE')),
@@ -218,9 +218,9 @@ class _MembersTabState extends ConsumerState<MembersTab> {
           // Members list
           Container(
             decoration: BoxDecoration(
-              color: AppTheme.glassSurface,
+              color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppTheme.glassBorder),
+              border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
             ),
             child: Column(
               children: [
@@ -229,14 +229,14 @@ class _MembersTabState extends ConsumerState<MembersTab> {
                   padding: const EdgeInsets.all(16),
                   child: Row(
                     children: [
-                      const Text('All Members', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
+                      Text('All Members', style: TextStyle(fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
                       const Spacer(),
                       SizedBox(
                         width: 200,
                         height: 36,
                         child: TextField(
                           onChanged: (v) => setState(() => _searchTerm = v),
-                          style: const TextStyle(fontSize: 13, color: Colors.white),
+                          style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.onSurface),
                           decoration: InputDecoration(
                             hintText: 'Search...',
                             hintStyle: TextStyle(color: AppTheme.textSecondary),
@@ -255,14 +255,14 @@ class _MembersTabState extends ConsumerState<MembersTab> {
                               borderSide: const BorderSide(color: AppTheme.primaryAccent),
                             ),
                             filled: true,
-                            fillColor: AppTheme.backgroundDark.withOpacity(0.5),
+                            fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark.withOpacity(0.5) : AppTheme.lightBg,
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Divider(height: 1, color: AppTheme.glassBorder),
+                Divider(height: 1, color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
 
                 // Members
                 if (members.isEmpty)
@@ -291,7 +291,7 @@ class _MembersTabState extends ConsumerState<MembersTab> {
   Widget _buildTextField(TextEditingController ctrl, String hint) {
     return TextField(
       controller: ctrl,
-      style: const TextStyle(fontSize: 13, color: Colors.white),
+      style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.onSurface),
       decoration: _inputDecoration(hint),
     );
   }
@@ -301,11 +301,11 @@ class _MembersTabState extends ConsumerState<MembersTab> {
       hintText: hint,
       hintStyle: TextStyle(color: AppTheme.textSecondary),
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.glassBorder)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.glassBorder)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppTheme.primaryAccent)),
       filled: true,
-      fillColor: AppTheme.backgroundDark.withOpacity(0.5),
+      fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark.withOpacity(0.5) : AppTheme.lightBg,
     );
   }
 }
@@ -330,7 +330,7 @@ class _MemberRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppTheme.glassBorder)),
+        border: Border(bottom: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
       ),
       child: Row(
         children: [
@@ -342,7 +342,7 @@ class _MemberRow extends StatelessWidget {
             ),
             child: CircleAvatar(
               radius: 18,
-              backgroundColor: AppTheme.backgroundDark,
+              backgroundColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark : Colors.white,
               child: Text(member.name[0], style: const TextStyle(color: AppTheme.primaryAccent, fontWeight: FontWeight.w500, fontSize: 13)),
             ),
           ),
@@ -351,7 +351,7 @@ class _MemberRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(member.name, style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.white, fontSize: 14)),
+                Text(member.name, style: TextStyle(fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface, fontSize: 14)),
                 const SizedBox(height: 2),
                 Text(member.email, style: TextStyle(color: AppTheme.textSecondary, fontSize: 12)),
                 const SizedBox(height: 8),
@@ -376,7 +376,7 @@ class _MemberRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: Icon(Icons.edit, size: 18, color: canEditThisMember ? AppTheme.textSecondary : AppTheme.glassBorder),
+                  icon: Icon(Icons.edit, size: 18, color: canEditThisMember ? AppTheme.textSecondary : (Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
                   onPressed: canEditThisMember ? onEdit : null,
                   tooltip: canEditThisMember ? 'Edit Member' : 'Cannot edit this role',
                   padding: EdgeInsets.zero,
@@ -384,7 +384,7 @@ class _MemberRow extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 IconButton(
-                  icon: Icon(Icons.delete_outline, size: 18, color: canEditThisMember ? const Color(0xFFEF4444) : AppTheme.glassBorder),
+                  icon: Icon(Icons.delete_outline, size: 18, color: canEditThisMember ? const Color(0xFFEF4444) : (Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
                   onPressed: canEditThisMember ? onDelete : null,
                   tooltip: canEditThisMember ? 'Remove Member' : 'Cannot remove this role',
                   padding: EdgeInsets.zero,

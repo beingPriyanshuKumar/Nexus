@@ -35,7 +35,7 @@ class OverviewTab extends ConsumerWidget {
                 children: [
                   Text(
                     'Welcome back, ${state.profile.name.split(' ')[0]}',
-                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
                   ),
                   const SizedBox(height: 4),
                   Text("Here's what's happening with your team today.",
@@ -65,14 +65,14 @@ class OverviewTab extends ConsumerWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AppTheme.glassSurface,
+              color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppTheme.glassBorder),
+              border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Recent Activity', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                Text('Recent Activity', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
                 const SizedBox(height: 4),
                 Text('Latest actions from your team members.', style: TextStyle(fontSize: 13, color: AppTheme.textSecondary)),
                 const SizedBox(height: 16),
@@ -101,7 +101,7 @@ class OverviewTab extends ConsumerWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(n.title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+                                  Text(n.title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface)),
                                   const SizedBox(height: 2),
                                   Text(n.message, style: TextStyle(fontSize: 12, color: AppTheme.textSecondary)),
                                 ],
@@ -121,14 +121,14 @@ class OverviewTab extends ConsumerWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AppTheme.glassSurface,
+              color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppTheme.glassBorder),
+              border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Team Status', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                Text('Team Status', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
                 const SizedBox(height: 4),
                 Text('Overview of current sprint.', style: TextStyle(fontSize: 13, color: AppTheme.textSecondary)),
                 const SizedBox(height: 16),
@@ -163,9 +163,9 @@ class _StatCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppTheme.glassSurface,
+        color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppTheme.glassBorder),
+        border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
         boxShadow: [
           BoxShadow(color: stat.color.withOpacity(0.08), blurRadius: 12, offset: const Offset(0, 4)),
         ],
@@ -183,7 +183,7 @@ class _StatCard extends StatelessWidget {
               Icon(stat.icon, color: stat.color.withOpacity(0.6), size: 18),
             ],
           ),
-          Text(stat.value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
+          Text(stat.value, style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
         ],
       ),
     );
@@ -201,9 +201,9 @@ class _TeamStatusItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppTheme.backgroundDark.withOpacity(0.5),
+        color: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark.withOpacity(0.5) : AppTheme.lightBg,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppTheme.glassBorder),
+        border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
       ),
       child: Row(
         children: [
@@ -212,7 +212,7 @@ class _TeamStatusItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+              Text(title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface)),
               Text(subtitle, style: TextStyle(fontSize: 12, color: AppTheme.textSecondary)),
             ],
           ),

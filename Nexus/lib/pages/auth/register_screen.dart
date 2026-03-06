@@ -108,8 +108,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    AppTheme.secondaryAccent.withOpacity(0.15),
-                    AppTheme.secondaryAccent.withOpacity(0.0),
+                    AppTheme.loginSecondaryAccent.withOpacity(0.15),
+                    AppTheme.loginSecondaryAccent.withOpacity(0.0),
                   ],
                 ),
               ),
@@ -128,8 +128,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    AppTheme.primaryAccent.withOpacity(0.12),
-                    AppTheme.primaryAccent.withOpacity(0.0),
+                    AppTheme.loginPrimaryAccent.withOpacity(0.12),
+                    AppTheme.loginPrimaryAccent.withOpacity(0.0),
                   ],
                 ),
               ),
@@ -148,8 +148,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    AppTheme.tertiaryAccent.withOpacity(0.08),
-                    AppTheme.tertiaryAccent.withOpacity(0.0),
+                    AppTheme.loginTertiaryAccent.withOpacity(0.15),
+                    AppTheme.loginTertiaryAccent.withOpacity(0.0),
                   ],
                 ),
               ),
@@ -195,7 +195,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         tag: 'auth_logo',
                         child: ShaderMask(
                           shaderCallback: (bounds) =>
-                              AppTheme.accentGradient.createShader(bounds),
+                              LinearGradient(colors: [AppTheme.loginPrimaryAccent, AppTheme.loginSecondaryAccent], begin: Alignment.topLeft, end: Alignment.bottomRight).createShader(bounds),
                           child: const Icon(
                             Icons.sync_rounded,
                             size: 64,
@@ -207,7 +207,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
                       ShaderMask(
                         shaderCallback: (bounds) =>
-                            AppTheme.accentGradient.createShader(bounds),
+                            LinearGradient(colors: [AppTheme.loginPrimaryAccent, AppTheme.loginSecondaryAccent], begin: Alignment.topLeft, end: Alignment.bottomRight).createShader(bounds),
                         child: Text(
                           'Create an account',
                           textAlign: TextAlign.center,
@@ -296,9 +296,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                 prefixIcon: Icon(Icons.school_outlined,
                                     color: AppTheme.textSecondary),
                               ),
-                              dropdownColor: const Color(0xFF1A1A2E),
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 14),
+                              dropdownColor: const Color(0xFF0F172A),
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.onSurface, fontSize: 14),
                               hint: Text('Select year',
                                   style: TextStyle(
                                       color: AppTheme.textSecondary)),
@@ -316,7 +316,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                     child: Text(
                                       y,
                                       style: const TextStyle(
-                                        color: AppTheme.primaryAccent,
+                                        color: AppTheme.loginSecondaryAccent,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -327,11 +327,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             const SizedBox(height: 28),
 
                             // Sign Up button
-                            AnimatedPrimaryButton(
-                              text: 'Sign Up',
-                              isLoading: authState.isLoading,
-                              onPressed: _handleSignUp,
-                            ),
+                              AnimatedPrimaryButton(
+                                text: 'Create Account',
+                                isLoading: authState.isLoading,
+                                onPressed: _handleSignUp,
+                                isLogin: true,
+                              ),
                           ],
                         ),
                       ),

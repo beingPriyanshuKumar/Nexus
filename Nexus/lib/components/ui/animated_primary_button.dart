@@ -7,6 +7,7 @@ class AnimatedPrimaryButton extends StatefulWidget {
   final VoidCallback onPressed;
   final bool isLoading;
   final IconData? icon;
+  final bool isLogin;
 
   const AnimatedPrimaryButton({
     super.key,
@@ -14,6 +15,7 @@ class AnimatedPrimaryButton extends StatefulWidget {
     required this.onPressed,
     this.isLoading = false,
     this.icon,
+    this.isLogin = false,
   });
 
   @override
@@ -74,16 +76,16 @@ class _AnimatedPrimaryButtonState extends State<AnimatedPrimaryButton>
           width: double.infinity,
           height: 60,
           decoration: BoxDecoration(
-            gradient: AppTheme.accentGradient,
+            gradient: widget.isLogin ? const LinearGradient(colors: [AppTheme.loginPrimaryAccent, AppTheme.loginSecondaryAccent], begin: Alignment.topLeft, end: Alignment.bottomRight) : AppTheme.accentGradient,
             borderRadius: BorderRadius.circular(50),
             boxShadow: [
               BoxShadow(
-                color: AppTheme.primaryAccent.withOpacity(0.35),
+                color: (widget.isLogin ? AppTheme.loginPrimaryAccent : AppTheme.primaryAccent).withOpacity(0.35),
                 blurRadius: 24,
                 offset: const Offset(0, 8),
               ),
               BoxShadow(
-                color: AppTheme.secondaryAccent.withOpacity(0.15),
+                color: (widget.isLogin ? AppTheme.loginSecondaryAccent : AppTheme.secondaryAccent).withOpacity(0.15),
                 blurRadius: 16,
                 offset: const Offset(0, 4),
               ),

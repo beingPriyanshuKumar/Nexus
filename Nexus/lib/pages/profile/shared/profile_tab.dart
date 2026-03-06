@@ -86,7 +86,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Edit Profile', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text('Edit Profile', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
               Row(
                 children: [
                   TextButton(
@@ -121,9 +121,9 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: AppTheme.glassSurface,
+              color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppTheme.glassBorder),
+              border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +140,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                         ),
                         child: CircleAvatar(
                           radius: 45,
-                          backgroundColor: AppTheme.backgroundDark,
+                          backgroundColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark : Colors.white,
                           child: Text(
                             profile.name.isNotEmpty ? profile.name[0] : '?',
                             style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: AppTheme.primaryAccent),
@@ -155,7 +155,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                           decoration: BoxDecoration(
                             gradient: AppTheme.accentGradient,
                             shape: BoxShape.circle,
-                            border: Border.all(color: AppTheme.backgroundDark, width: 2),
+                            border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark : Colors.white, width: 2),
                           ),
                           child: const Icon(Icons.camera_alt, color: Colors.white, size: 14),
                         ),
@@ -169,7 +169,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                 const SizedBox(height: 16),
 
                 // General info
-                const Text('General Information', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                Text('General Information', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
                 const SizedBox(height: 16),
                 Row(
                   children: [
@@ -186,7 +186,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                 TextField(
                   controller: _bioCtrl,
                   maxLines: 4,
-                  style: const TextStyle(fontSize: 13, color: Colors.white),
+                  style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.onSurface),
                   decoration: _inputDec('Bio'),
                 ),
 
@@ -195,7 +195,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                 const SizedBox(height: 16),
 
                 // Contact
-                const Text('Contact Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                Text('Contact Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
                 const SizedBox(height: 16),
                 Row(
                   children: [
@@ -255,9 +255,9 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
           // Profile card
           Container(
             decoration: BoxDecoration(
-              color: AppTheme.glassSurface,
+              color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppTheme.glassBorder),
+              border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
             ),
             clipBehavior: Clip.antiAlias,
             child: Column(
@@ -307,7 +307,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                         ),
                         child: CircleAvatar(
                           radius: 40,
-                          backgroundColor: AppTheme.backgroundDark,
+                          backgroundColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark : Colors.white,
                           child: Text(
                             profile.name.isNotEmpty ? profile.name[0].toUpperCase() : '?',
                             style: const TextStyle(
@@ -330,10 +330,10 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                       // Name
                       Text(
                         profile.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.onSurface,
                           letterSpacing: 0.5,
                         ),
                       ),
@@ -354,10 +354,10 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                               AppTheme.accentGradient.createShader(bounds),
                           child: Text(
                             profile.role,
-                            style: const TextStyle(
-                              fontSize: 12,
+                            style: TextStyle(
+                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
                               letterSpacing: 0.5,
                             ),
                           ),
@@ -427,9 +427,9 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AppTheme.glassSurface,
+              color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppTheme.glassBorder),
+              border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -438,10 +438,10 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                   children: [
                     ShaderMask(
                       shaderCallback: (bounds) => AppTheme.accentGradient.createShader(bounds),
-                      child: const Icon(Icons.swap_horiz_rounded, size: 22, color: Colors.white),
+                      child: Icon(Icons.swap_horiz_rounded, size: 22, color: Theme.of(context).colorScheme.onSurface),
                     ),
                     const SizedBox(width: 8),
-                    const Text('Switch Club', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                    Text('Switch Club', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
                   ],
                 ),
                 const SizedBox(height: 6),
@@ -466,7 +466,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                                   shape: BoxShape.circle,
                                   gradient: isActive ? AppTheme.accentGradient : null,
                                   border: isActive ? null : Border.all(color: AppTheme.glassBorder, width: 2),
-                                  color: isActive ? null : AppTheme.glassSurface,
+                                  color: isActive ? null : (Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : AppTheme.lightBg),
                                 ),
                                 child: Center(
                                   child: Text(
@@ -474,7 +474,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
-                                      color: isActive ? Colors.white : AppTheme.textSecondary,
+                                      color: isActive ? Colors.white : Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
                                     ),
                                   ),
                                 ),
@@ -486,7 +486,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                                   club.name,
                                   style: TextStyle(
                                     fontSize: 10,
-                                    color: isActive ? Colors.white : AppTheme.textSecondary,
+                                    color: isActive ? (Theme.of(context).brightness == Brightness.dark ? Colors.white : AppTheme.primaryAccent) : Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
                                     fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
                                   ),
                                   textAlign: TextAlign.center,
@@ -541,10 +541,10 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
             children: [
               ShaderMask(
                 shaderCallback: (bounds) => AppTheme.accentGradient.createShader(bounds),
-                child: const Icon(Icons.emoji_events, size: 20, color: Colors.white),
-              ),
-              const SizedBox(width: 8),
-              const Text('Club Memberships', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                child: Icon(Icons.emoji_events, size: 20, color: Theme.of(context).colorScheme.onSurface),
+            ),
+            const SizedBox(width: 8),
+            Text('Club Memberships', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
             ],
           ),
           const SizedBox(height: 16),
@@ -553,9 +553,9 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                 margin: const EdgeInsets.only(bottom: 12),
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: AppTheme.glassSurface,
+                  color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppTheme.glassBorder),
+                  border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -570,11 +570,11 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Text(club.name, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text(club.name, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
                     const SizedBox(height: 4),
                     ShaderMask(
                       shaderCallback: (bounds) => AppTheme.accentGradient.createShader(bounds),
-                      child: Text(club.role, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+                       child: Text(club.role, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface)),
                     ),
                     const SizedBox(height: 8),
                     Text(club.description, style: TextStyle(fontSize: 12, color: AppTheme.textSecondary, height: 1.4)),
@@ -632,7 +632,7 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
 
           // ─── Sign Out Button ───
           GestureDetector(
-            onTap: () => GoRouter.of(context).go('/home'),
+            onTap: () => GoRouter.of(context).go('/login'),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -669,16 +669,16 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: AppTheme.backgroundDark.withOpacity(0.5),
+        color: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark.withOpacity(0.5) : AppTheme.lightBg,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppTheme.glassBorder),
+        border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
       ),
       child: Row(
         children: [
           ShaderMask(
             shaderCallback: (bounds) =>
                 AppTheme.accentGradient.createShader(bounds),
-            child: Icon(icon, size: 16, color: Colors.white),
+            child: Icon(icon, size: 16, color: Theme.of(context).colorScheme.onSurface),
           ),
           const SizedBox(width: 8),
           Flexible(
@@ -696,17 +696,17 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
   Widget _editField(TextEditingController ctrl, String label, {IconData? icon}) {
     return TextField(
       controller: ctrl,
-      style: const TextStyle(fontSize: 13, color: Colors.white),
+      style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.onSurface),
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(fontSize: 13, color: AppTheme.textSecondary),
         prefixIcon: icon != null ? Icon(icon, size: 18, color: AppTheme.textSecondary) : null,
         contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.glassBorder)),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.glassBorder)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
         focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppTheme.primaryAccent)),
         filled: true,
-        fillColor: AppTheme.backgroundDark.withOpacity(0.5),
+        fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark.withOpacity(0.5) : AppTheme.lightBg,
       ),
     );
   }
@@ -716,11 +716,11 @@ class _ProfileTabState extends ConsumerState<ProfileTab> {
       hintText: hint,
       hintStyle: TextStyle(color: AppTheme.textSecondary),
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.glassBorder)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: AppTheme.glassBorder)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder)),
       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: const BorderSide(color: AppTheme.primaryAccent)),
       filled: true,
-      fillColor: AppTheme.backgroundDark.withOpacity(0.5),
+      fillColor: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark.withOpacity(0.5) : AppTheme.lightBg,
     );
   }
 }

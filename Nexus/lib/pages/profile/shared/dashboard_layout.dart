@@ -35,33 +35,38 @@ class DashboardLayout extends ConsumerWidget {
     final notifier = ref.read(profileProvider.notifier);
     final tabs = _getTabs(profileState.role);
 
-    return Scaffold(
-      backgroundColor: AppTheme.backgroundDark,
-      appBar: AppBar(
-        backgroundColor: AppTheme.glassSurface,
+    return Theme(
+      data: AppTheme.lightTheme,
+      child: Builder(
+        builder: (context) {
+          final theme = Theme.of(context);
+          return Scaffold(
+            backgroundColor: theme.scaffoldBackgroundColor,
+            appBar: AppBar(
+              backgroundColor: theme.colorScheme.surface,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            Container(
-              height: 32,
-              width: 32,
-              decoration: BoxDecoration(
-                gradient: AppTheme.accentGradient,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text(
-                  profileState.role,
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11),
+            title: Row(
+              children: [
+                Container(
+                  height: 32,
+                  width: 32,
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.accentGradient,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      profileState.role,
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11),
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(width: 8),
+                Text('Dashboard', style: TextStyle(color: theme.colorScheme.onSurface, fontWeight: FontWeight.w600, fontSize: 16)),
+              ],
             ),
-            const SizedBox(width: 8),
-            const Text('Dashboard', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16)),
-          ],
-        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(2),
           child: Container(
@@ -70,12 +75,12 @@ class DashboardLayout extends ConsumerWidget {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          // Background gradient
-          Container(
-            decoration: const BoxDecoration(gradient: AppTheme.backgroundGradient),
-          ),
+            body: Stack(
+              children: [
+                // Clean background
+                Container(
+                  color: theme.scaffoldBackgroundColor,
+                ),
 
           // Tab content
           Positioned.fill(
@@ -85,33 +90,39 @@ class DashboardLayout extends ConsumerWidget {
             ),
           ),
 
-          // Floating Bottom Navigation
-          Positioned(
-            bottom: 16,
-            left: 16,
-            right: 16,
-            child: _buildBottomNav(profileState, notifier, tabs),
-          ),
-        ],
+                // Floating Bottom Navigation
+                Positioned(
+                  bottom: 16,
+                  left: 16,
+                  right: 16,
+                  child: _buildBottomNav(context, profileState, notifier, tabs),
+                ),
+              ],
+            ),
+          );
+        }
       ),
     );
   }
 
-  Widget _buildBottomNav(ProfileState profileState, ProfileNotifier notifier, List<(String, IconData)> tabs) {
+  Widget _buildBottomNav(BuildContext context, ProfileState profileState, ProfileNotifier notifier, List<(String, IconData)> tabs) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Container(
       height: 66,
       decoration: BoxDecoration(
-        color: AppTheme.glassSurface,
+        color: isDark ? AppTheme.glassSurface : Colors.white,
         borderRadius: BorderRadius.circular(35),
-        border: Border.all(color: AppTheme.glassBorder, width: 1),
+        border: Border.all(color: isDark ? AppTheme.glassBorder : AppTheme.lightBorder, width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.4),
+            color: Colors.black.withOpacity(isDark ? 0.4 : 0.05),
             blurRadius: 20,
             offset: const Offset(0, 5),
           ),
           BoxShadow(
-            color: AppTheme.primaryAccent.withOpacity(0.05),
+            color: theme.colorScheme.primary.withOpacity(0.05),
             blurRadius: 15,
           ),
         ],
@@ -125,7 +136,7 @@ class DashboardLayout extends ConsumerWidget {
             children: tabs.map((tab) {
               final tabId = tab.$1.toLowerCase();
               final isSelected = profileState.activeTab == tabId;
-              return _buildNavItem(tab.$2, tab.$1, tabId, isSelected, notifier);
+              return _buildNavItem(context, tab.$2, tab.$1, tabId, isSelected, notifier);
             }).toList(),
           ),
         ),
@@ -133,7 +144,7 @@ class DashboardLayout extends ConsumerWidget {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, String tabId, bool isSelected, ProfileNotifier notifier) {
+  Widget _buildNavItem(BuildContext context, IconData icon, String label, String tabId, bool isSelected, ProfileNotifier notifier) {
     return GestureDetector(
       onTap: () => notifier.setActiveTab(tabId),
       child: AnimatedContainer(
@@ -163,7 +174,7 @@ class DashboardLayout extends ConsumerWidget {
                   return AppTheme.accentGradient.createShader(bounds);
                 }
                 return LinearGradient(
-                  colors: [AppTheme.textSecondary, AppTheme.textSecondary],
+                  colors: [Theme.of(context).textTheme.bodyMedium!.color!, Theme.of(context).textTheme.bodyMedium!.color!],
                 ).createShader(bounds);
               },
               child: Icon(icon, color: Colors.white, size: 20),

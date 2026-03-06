@@ -33,9 +33,9 @@ class ClubDetailCard extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: AppTheme.glassSurface,
+                color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassSurface : Colors.white,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppTheme.glassBorder),
+                border: Border.all(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
@@ -60,22 +60,21 @@ class ClubDetailCard extends StatelessWidget {
                                       club.img!,
                                       width: 28,
                                       height: 28,
-                                      colorFilter: const ColorFilter.mode(
-                                        Colors.white,
+                                      colorFilter: ColorFilter.mode(
+                                        Theme.of(context).colorScheme.onSurface,
                                         BlendMode.srcIn,
                                       ),
                                     )
-                                  : Icon(Icons.group, color: Colors.white, size: 28),
+                                    : Icon(Icons.group, color: Theme.of(context).colorScheme.onSurface, size: 28),
                             ),
                             const SizedBox(width: 14),
                             Expanded(
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     club.name,
-                                    style: const TextStyle(
-                                      color: Colors.white,
+                                    style: TextStyle(
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
@@ -135,8 +134,8 @@ class ClubDetailCard extends StatelessWidget {
                                       .createShader(bounds),
                                   child: Text(
                                     k,
-                                    style: const TextStyle(
-                                      color: Colors.white,
+                                    style: TextStyle(
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       fontSize: 11,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -164,9 +163,9 @@ class ClubDetailCard extends StatelessWidget {
                                         shaderCallback: (bounds) => AppTheme
                                             .accentGradient
                                             .createShader(bounds),
-                                        child: const Text('Focus',
+                                        child: Text('Focus',
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: Theme.of(context).colorScheme.onSurface,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w600)),
                                       ),
@@ -208,9 +207,9 @@ class ClubDetailCard extends StatelessWidget {
                                         shaderCallback: (bounds) => AppTheme
                                             .cyanGradient
                                             .createShader(bounds),
-                                        child: const Text('Activities',
+                                        child: Text('Activities',
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: Theme.of(context).colorScheme.onSurface,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w600)),
                                       ),
@@ -267,7 +266,7 @@ class ClubDetailCard extends StatelessWidget {
                                 ),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    context.push('/home/clubs/apply',
+                                    context.push('/clubs/apply',
                                         extra: club);
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -304,7 +303,7 @@ class ClubDetailCard extends StatelessWidget {
                                 child: Container(
                                   margin: const EdgeInsets.all(1),
                                   decoration: BoxDecoration(
-                                    color: AppTheme.backgroundDark,
+                                    color: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundDark : Colors.white,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   child: OutlinedButton(
@@ -312,7 +311,7 @@ class ClubDetailCard extends StatelessWidget {
                                       _showKnowMore(context, club);
                                     },
                                     style: OutlinedButton.styleFrom(
-                                      foregroundColor: Colors.white,
+                                      foregroundColor: Theme.of(context).colorScheme.onSurface,
                                       side: BorderSide.none,
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 14),
@@ -349,10 +348,10 @@ class ClubDetailCard extends StatelessWidget {
       builder: (context) => Container(
         height: MediaQuery.of(context).size.height * 0.7,
         decoration: BoxDecoration(
-          color: AppTheme.backgroundLightGradient,
+          color: Theme.of(context).brightness == Brightness.dark ? AppTheme.backgroundLightGradient : Colors.white,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
           border: Border(
-            top: BorderSide(color: AppTheme.glassBorder),
+            top: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? AppTheme.glassBorder : AppTheme.lightBorder),
           ),
         ),
         child: Column(
@@ -398,7 +397,7 @@ class ClubDetailCard extends StatelessWidget {
                                 AppTheme.accentGradient.createShader(bounds),
                             child: Icon(
                               getClubIcon(club.abbr),
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onSurface,
                               size: 32,
                             ),
                           ),
@@ -409,8 +408,8 @@ class ClubDetailCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(club.name,
-                                  style: const TextStyle(
-                                      color: Colors.white,
+                                  style: TextStyle(
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold)),
                               if (club.fullForm != null)
@@ -435,9 +434,9 @@ class ClubDetailCard extends StatelessWidget {
                       ShaderMask(
                         shaderCallback: (bounds) =>
                             AppTheme.accentGradient.createShader(bounds),
-                        child: const Text('Focus Areas',
+                        child: Text('Focus Areas',
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold)),
                       ),
@@ -461,9 +460,9 @@ class ClubDetailCard extends StatelessWidget {
                       ShaderMask(
                         shaderCallback: (bounds) =>
                             AppTheme.cyanGradient.createShader(bounds),
-                        child: const Text('Activities',
+                        child: Text('Activities',
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold)),
                       ),
@@ -494,7 +493,7 @@ class ClubDetailCard extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.pop(context);
-                            context.push('/home/clubs/apply', extra: club);
+                            context.push('/clubs/apply', extra: club);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,

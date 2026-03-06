@@ -51,7 +51,7 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
       if (user?.year != null) {
         context.go('/profile/${user!.year}');
       } else {
-        context.go('/home');
+        context.go('/login');
       }
     }
   }
@@ -79,8 +79,8 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    AppTheme.secondaryAccent.withOpacity(0.15),
-                    AppTheme.secondaryAccent.withOpacity(0.0),
+                    AppTheme.loginSecondaryAccent.withOpacity(0.15),
+                    AppTheme.loginSecondaryAccent.withOpacity(0.0),
                   ],
                 ),
               ),
@@ -99,8 +99,8 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    AppTheme.primaryAccent.withOpacity(0.10),
-                    AppTheme.primaryAccent.withOpacity(0.0),
+                    AppTheme.loginPrimaryAccent.withOpacity(0.10),
+                    AppTheme.loginPrimaryAccent.withOpacity(0.0),
                   ],
                 ),
               ),
@@ -123,7 +123,7 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppTheme.secondaryAccent.withOpacity(0.25),
+                          color: AppTheme.loginSecondaryAccent.withOpacity(0.25),
                           blurRadius: 40,
                           spreadRadius: 5,
                         ),
@@ -131,12 +131,12 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
                     ),
                     child: ShaderMask(
                       shaderCallback: (bounds) => const LinearGradient(
-                        colors: [AppTheme.secondaryAccent, AppTheme.primaryAccent],
+                        colors: [AppTheme.loginSecondaryAccent, AppTheme.loginPrimaryAccent],
                       ).createShader(bounds),
-                      child: const Icon(
+                      child: Icon(
                         Icons.verified_user_rounded,
                         size: 80,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ).animate().fadeIn(duration: 500.ms).scale(
@@ -171,7 +171,7 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
                   const SizedBox(height: 48),
 
                   GlassCard(
-                    glowColor: AppTheme.secondaryAccent,
+                    glowColor: AppTheme.loginSecondaryAccent,
                     padding: const EdgeInsets.all(32),
                     child: Column(
                       children: [
@@ -181,6 +181,7 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
                             text: 'Send OTP',
                             isLoading: _isLoading,
                             onPressed: _sendOtp,
+                            isLogin: true,
                           ),
                         ] else ...[
                           // OTP Input with gradient accents
@@ -201,10 +202,10 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
                               activeFillColor: AppTheme.glassSurface,
                               inactiveFillColor: AppTheme.glassSurface,
                               selectedFillColor:
-                                  AppTheme.primaryAccent.withOpacity(0.1),
-                              activeColor: AppTheme.primaryAccent,
+                                  AppTheme.loginPrimaryAccent.withOpacity(0.1),
+                              activeColor: AppTheme.loginPrimaryAccent,
                               inactiveColor: AppTheme.glassBorder,
-                              selectedColor: AppTheme.secondaryAccent,
+                              selectedColor: AppTheme.loginSecondaryAccent,
                             ),
                             enableActiveFill: true,
                             keyboardType: TextInputType.number,
@@ -221,6 +222,7 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
                             text: 'Verify Account',
                             isLoading: _isLoading,
                             onPressed: _verify,
+                            isLogin: true,
                           ),
 
                           const SizedBox(height: 16),
@@ -229,7 +231,7 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
                             onPressed: _isLoading ? null : _sendOtp,
                             child: ShaderMask(
                               shaderCallback: (bounds) =>
-                                  AppTheme.accentGradient.createShader(bounds),
+                                  LinearGradient(colors: [AppTheme.loginPrimaryAccent, AppTheme.loginSecondaryAccent], begin: Alignment.topLeft, end: Alignment.bottomRight).createShader(bounds),
                               child: Text(
                                 'Resend OTP',
                                 style: TextStyle(
